@@ -1,4 +1,3 @@
-# ant_brain_comparative
 # Codes for comparative ant brain transcriptomes
 ## Gene_age_determination
 Used it to constructed gene age based on their ortholog occurrence on insect phylogentic tree.
@@ -17,3 +16,15 @@ Used it to detect differentially expressed genes between castes/phenotypes, sepa
 *gene_network.R* constructed DEGs and gene age table (based on orthologous information).
 
 ## Ant_transcriptome_comparison
+Used it to detect conserved caste differentially expressed genes across ant species, adjust for species/colony identity for gene expression, and test conservation of ant caste genetic regulatory network in queenless ants, honey bee, and social wasp.
+
+*deg_full_model.R* will detect differentially expressed genes between castes across five ant species, using GLM model from *DESeq2*.
+
+*salmon_all.R* will adjust for the species/colony identity for gene expression (caste specific gene expression), and visualize with *ggplot2* package in R.
+
+*manova.R* will test the contribution of species/sub-family identity, caste status, and their interaction to the PCA data, using Multivariate analysis of variance.
+
+*salmon_trainning.R* and *salmon_test.R* will test the existence of caste GRN in other species: train with *salmon_trainning.R* (using five ant species with normal caste differentiation as training data), then use *salmon_all.R* to include target species and test with *salmon_test.R*, which will use SVD to extract eigenvectors from training data and project data from target species onto the trained eigenvectors.
+
+*SVD_test* directory includes codes for testing SVD method (using leave one out Jack knife).
+
