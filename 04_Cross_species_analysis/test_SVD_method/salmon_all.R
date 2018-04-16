@@ -69,7 +69,7 @@ subset_test = c(1:62)
 subset_test = c(1:42)
 filter_table = sampleTable[subset_test,]
 #filter_table$batch_t = as.factor(c(rep(1,26),rep(2,36)))
-batch = droplevels(filter_table$species)
+#batch = droplevels(filter_table$species)
 batch = droplevels(filter_table$colony)
 
 modcombat = model.matrix(~1, data=filter_table)

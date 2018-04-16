@@ -63,12 +63,10 @@ exp_T = exp
 library(sva)
 #ortholog_exp_filtered = ortholog_exp[!apply(ortholog_exp,1, anyNA),] 
 #subset_test = c(1:8)
-subset_test_T = grep('Aech',rownames(sampleTable_T))
-subset_test_T = grep('Sinv',rownames(sampleTable_T))
-subset_test_T = grep('Mpha',rownames(sampleTable_T))
-subset_test_T = grep('Lnig',rownames(sampleTable_T))
-subset_test_T = grep('Lhum',rownames(sampleTable_T))
-subset_test_T = 99
+subset_sp = c("Aech",'Sinv','Mpha','Lnig','Lhum')
+n = 5
+subset_test_T = grep(subset_sp[n],rownames(sampleTable_T))
+#subset_test_T = 99
 
 filter_table_T = sampleTable_T[-subset_test_T,]
 #batch = droplevels(filter_table_T$species)
@@ -105,18 +103,18 @@ pheatmap(sampleDistMatrix,annotation_col = sampleTable_col,annotation_row = samp
          col=colors)#,annotation_colors = ann_colors)
 
 library(ggplot2)
-se <- SummarizedExperiment(combat_edata_train - rowMeans(combat_edata_train),colData=filter_table_T)
-pcaData <- plotPCA(DESeqTransform( se ), intgroup=c("species", "caste"),ntop = 7266, returnData=TRUE)
+se_train <- SummarizedExperiment(combat_edata_train - rowMeans(combat_edata_train),colData=filter_table_T)
+pcaData_train <- plotPCA(DESeqTransform( se_train ), intgroup=c("species", "caste"),ntop = 7266, returnData=TRUE)
 
 #pcaData$species = factor(pcaData$species,levels = c('A.echinatior',"S.invicta","M.pharaonis",'L.niger','L.humile'))
-percentVar <- round(100 * attr(pcaData, "percentVar"))
-names(pcaData)[c(4,5)] = c('Species',"Caste")
-ggplot(pcaData, aes(PC1, PC2, color=Caste, shape=Species)) +
+percentVar_train <- round(100 * attr(pcaData_train, "percentVar"))
+names(pcaData_train)[c(4,5)] = c('Species',"Caste")
+ggplot(pcaData_train, aes(PC1, PC2, color=Caste, shape=Species)) +
   geom_point(size=3,alpha = .6) +
   scale_shape_manual(values = c(15:17,1,9,10))+
   scale_color_manual(values = c('red','brown','blue','purple','darkblue'))+
-  xlab(paste0("PC1 (",percentVar[1],"%)")) +
-  ylab(paste0("PC2 (",percentVar[2],"%)")) + 
+  xlab(paste0("PC1 (",percentVar_train[1],"%)")) +
+  ylab(paste0("PC2 (",percentVar_train[2],"%)")) + 
   coord_fixed()
 
 #####

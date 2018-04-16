@@ -12,9 +12,8 @@ pc_data_test$species = factor(pc_data_test$species,levels = c('A.echinatior',"S.
 
 levels(pc_data_test$caste)  = c("Gyne","Worker","Non-reproductive","Reproductive",'Worker')
 pc_data_test$caste = factor(pc_data_test$caste,levels = c("Gyne",'Worker', "Reproductive","Non-reproductive"))
-plot_alpha = rep(1,7)
+plot_alpha = rep(0.3,7)
 #plot_alpha[c(2,3)] = 1
-n = 5
 plot_alpha[n] = 1
 
 #percentVar <- round(100 * attr(pc_data_test, "percentVar"))
@@ -25,8 +24,8 @@ ggplot(pc_data_test, aes(PC1, PC2, color=Caste, shape=Species,alpha = Species)) 
   scale_alpha_manual(values=plot_alpha)+
   scale_color_manual(values = c('red','blue','purple','black'))+
   #scale_x_continuous(trans = 'reverse')+
-  xlab(paste0("PC1 (",percentVar[1],"%)")) +
-  ylab(paste0("PC2 (",percentVar[2],"%)"))+
+  xlab(paste0("PC1 (",percentVar_train[1],"%)")) +
+  ylab(paste0("PC2 (",percentVar_train[2],"%)"))+
   labs(title = levels(pc_data_test$Species)[n])+
   coord_fixed()
 
