@@ -1,6 +1,6 @@
 # Codes for comparative ant brain transcriptomes
 ## 01. Preparation
-In this folder, we provided scripts for re-annotating genomes (1.1) with GeMoMwa and finding orthologs across seven ant species (1.2) with RBH and synteny information. The re-annonated genomes are used for downstream analayses, including gene age determination and expression quantification, and the ortholog information is used for cross species comparison.
+In this folder, we provided scripts for re-annotating genomes with GeMoMa (1.1) and finding orthologs across seven ant species (1.2) with reciprocal blast (RBH) and synteny information. The re-annonated genomes are used for downstream analayses, including gene age determination and expression quantification, and the ortholog information is used for cross species comparison.
 
 ## 02. Gene age determination
 We provided R and python scripts that used for gene age determination and visualization.
