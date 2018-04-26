@@ -10,5 +10,6 @@ We provided bash and R script for gene expression quantification (Hisat+Stringti
 
 ## 04. Cross species comparison
 We provided R scripts for comparing orthologous gene expression across species (4.1), normalizing for species/colony identity on gene expression (4.1), using SVD to examine the genetic regulatory network in queenless ants, honeybee and paper wasp (4.2), constructing cross-species co-expression network (4.3), and identifying DEGs across ant species (4.4). 
+
 _Note:_ *04_Cross_species_analysis/test_SVD_method* directory includes codes for testing SVD method (using leave-one-out Jackknife).
 
