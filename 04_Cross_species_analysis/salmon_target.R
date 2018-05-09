@@ -14,6 +14,7 @@ Lnig_exp = read_input('Lnig',col_name = c(1:8))
 Cbir_exp = read_input('Cbir',col_name = c(1:8))
 Dqua_exp = read_input('Dqua',col_name = c(1:5,7:13))
 #####
+# Gene expression matrix for 1-to-1 orthologous genes in all seven ant species
 ortholog_exp = cbind(Aech_exp[match(gene_ortholog_table$Aech, rownames(Aech_exp)),],
                      Lhum_exp[match(gene_ortholog_table$Lhum, rownames(Lhum_exp)),],
                      Mpha_exp[match(gene_ortholog_table$Mpha, rownames(Mpha_exp)),],
@@ -43,15 +44,14 @@ colnames(exp) = colnames(exp_data)
 exp = exp[!apply(exp, 1, anyNA),]
 
 
-# Try to combat to remove the species effect, then the colony effect.
-
 library(sva)
 ortholog_exp_filtered = ortholog_exp[!apply(ortholog_exp,1, anyNA),] 
 
 filter_table = sampleTable
-batch = droplevels(filter_table$species)
-batch = droplevels(filter_table$colony)
+#batch = droplevels(filter_table$species)
+batch = droplevels(filter_table$colony) #Note that should choose the same level of normalization for both reference and target.
 
 modcombat = model.matrix(~1, data=filter_table)
-combat_edata = ComBat(dat=exp, batch=batch, mod=modcombat,mean.only = F,
+combat_edata_target = ComBat(dat=exp, batch=batch, mod=modcombat,mean.only = F,
                       par.prior=TRUE,  prior.plots=FALSE) #Normalized expression level of both reference and target species.
+

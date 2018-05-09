@@ -3,8 +3,9 @@ library(sva)
 ortholog_exp_filtered = ortholog_exp[!apply(ortholog_exp,1, anyNA),] 
 
 filter_table = sampleTable
-batch = droplevels(filter_table$species)
-# batch = droplevels(filter_table$colony) #Remove the # when normalising for colony identity.
+
+batch = droplevels(filter_table$colony) 
+#batch = droplevels(filter_table$species) #Remove the # when normalising for species identity.
 modcombat = model.matrix(~1, data=filter_table)
 combat_edata = ComBat(dat=exp, batch=batch, mod=modcombat,mean.only = F,
                       par.prior=TRUE,  prior.plots=FALSE)
@@ -14,8 +15,10 @@ sampleDistMatrix <- as.matrix(sampleDists)
 rownames(sampleDistMatrix) <- colnames(combat_edata)
 colnames(sampleDistMatrix) <- colnames(combat_edata)
 colors <- colorRampPalette( brewer.pal(9, "Blues"))(255)
-levels(sampleTable$species) = c('A.echinatior','C.biroi','D.quadriceps','L.humile','L.niger','M.pharaonis','S.invicta')
-levels(sampleTable$caste) = c("Gyne",'Small worker','Non-reproductive','Reproductive','Worker')
+levels(sampleTable$species) = c('A.echinatior','L.humile','L.niger','M.pharaonis','S.invicta')
+#levels(sampleTable$species) = c('A.echinatior','C.biroi','D.quadriceps','L.humile','L.niger','M.pharaonis','S.invicta')
+levels(sampleTable$caste) = c("Gyne",'Small worker','Worker')
+#levels(sampleTable$caste) = c("Gyne",'Small worker','Non-reproductive','Reproductive','Worker')
 sampleTable_col = data.frame(Species = sampleTable$species,row.names = row.names(sampleTable))
 sampleTable_row = data.frame(Caste = sampleTable$caste,row.names = row.names(sampleTable))
 sp_color = grey.colors(7,start = 0.1,end = 1)
@@ -39,9 +42,11 @@ library(ggplot2)
 se <- SummarizedExperiment(combat_edata - rowMeans(combat_edata),colData=sampleTable)
 pcaData <- plotPCA(DESeqTransform( se ), intgroup=c("species", "caste"),ntop = 7266, returnData=TRUE)
 
-pcaData$species = factor(pcaData$species,levels = c('A.echinatior',"S.invicta","M.pharaonis","L.niger",'L.humile','C.biroi','D.quadriceps'))
-pcaData$caste = factor(pcaData$caste,levels = c("Gyne","Small worker",'Worker', "Reproductive","Non-reproductive"))
-levels(pcaData$caste) = c("Gyne","Worker","Worker","Reproductive","Non-reproductive")
+pcaData$species = factor(pcaData$species,levels = c('A.echinatior',"S.invicta","M.pharaonis","L.niger",'L.humile'))
+#pcaData$species = factor(pcaData$species,levels = c('A.echinatior',"S.invicta","M.pharaonis","L.niger",'L.humile','C.biroi','D.quadriceps'))
+pcaData$caste = factor(pcaData$caste,levels = c("Gyne","Small worker",'Worker'))
+#pcaData$caste = factor(pcaData$caste,levels = c("Gyne","Small worker",'Worker', "Reproductive","Non-reproductive"))
+levels(pcaData$caste) = c("Gyne","Worker","Worker")#,"Reproductive","Non-reproductive")
 
 percentVar_all <- round(100 * attr(pcaData, "percentVar"))
 names(pcaData)[c(4,5)] = c('Species',"Caste")

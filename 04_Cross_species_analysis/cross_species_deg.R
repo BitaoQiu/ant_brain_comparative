@@ -1,7 +1,8 @@
 #gene_age
-t2gene = read.table('candidate_gene/Aech_gemoma_t2g.txt')
+t2gene = read.table('input/deg_salmon_gemoma/Aech//Aech_gemoma_t2g.txt')
 library(readr)
-tblast <- read_delim("candidate_gene/proteins.fasta.blastout", 
+#Import blastp annotation.
+tblast <- read_delim("input//proteins.fasta.blastout", 
                      "\t", escape_double = FALSE, col_names = FALSE, 
                      trim_ws = TRUE)
 t2gene$V1 = toupper(t2gene$V1)
@@ -19,14 +20,14 @@ library(tximport)
 library('DESeq2')
 library("RColorBrewer")
 library("pheatmap")
-gene_ortholog_table = read.table('gene_table.poff', col.names = c('Aech','Sinv','Mpha','Lnig','Lhum','Cbir','Dqua'))
+gene_ortholog_table = read.table('input/gene_table.poff', col.names = c('Aech','Sinv','Mpha','Lnig','Lhum','Cbir','Dqua'))
 
 read_input = function(species_header, col_name){
   aech_files = c(paste(species_header,col_name,sep ='_'))
-  files <- file.path("deg_salmon_gemoma/", species_header,
+  files <- file.path("input/deg_salmon_gemoma/", species_header,
                      'quants', aech_files, "quant.sf")
   names(files) <- aech_files
-  tx2gene <- read.csv(paste('deg_salmon_gemoma/', species_header,'/',species_header,
+  tx2gene <- read.csv(paste('input/deg_salmon_gemoma/', species_header,'/',species_header,
                             '_gemoma_t2g.txt',sep = ''),header = F, sep = '\t')
   tx2gene$V1 = toupper(tx2gene$V1)
   txi.salmon <- tximport(files, type = "salmon", tx2gene = tx2gene,
@@ -101,6 +102,7 @@ colData(Aech_dds)
 dds <- DESeqDataSetFromTximport(ortholog_exp, sampleTable, 
                                 ~ colony + caste)# + type )
 
+# Import the size factor for each species.
 colData(dds)$sizeFactor = c(colData(Aech_dds)$sizeFactor,colData(Lhum_dds)$sizeFactor,colData(Mpha_dds)$sizeFactor,colData(Sinv_dds)$sizeFactor,colData(Lnig_dds)$sizeFactor)
 dds = estimateDispersions(dds)
 dds =  nbinomWaldTest(dds)
@@ -110,14 +112,12 @@ summary(res)
 res_filter = res[which(res$padj <1e-2),]
 res_filter$name = t2gene$blast[match(rownames(res_filter),t2gene$V2)]
 res_filter = data.frame(res_filter)
-res_filter
+
 res_ver1 = data.frame(res_filter[order(res_filter$log2FoldChange),])
-res_ver2 = data.frame(res_filter[order(res_filter$log2FoldChange),])
-test_gene = c('Aech_gene_5241')
+test_gene = c('Aech_gene_13364') #Test plotting
 d <- plotCounts(dds,normalized = T, gene=test_gene, intgroup=c("caste",'species','colony'),returnData = T)
 ggplot(data = d, aes(x = caste,y = count, colour = species,group = colony))+
   geom_point()+
   geom_line()+
   scale_y_log10()
 
-}

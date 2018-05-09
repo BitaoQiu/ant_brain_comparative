@@ -5,14 +5,14 @@ library(tximport)
 library('DESeq2')
 library("RColorBrewer")
 library("pheatmap")
-gene_ortholog_table = read.table('../ortholog_seven/gene_table.poff', col.names = c('Aech','Sinv','Mpha','Lnig','Lhum','Cbir','Dqua'))
+gene_ortholog_table = read.table('../input//gene_table.poff', col.names = c('Aech','Sinv','Mpha','Lnig','Lhum','Cbir','Dqua'))
 
 read_input = function(species_header, col_name){
   aech_files = c(paste(species_header,col_name,sep ='_'))
-  files <- file.path("~/Library/Mobile Documents/com~apple~CloudDocs/KU_data_analysis/gene_age/gene_age_v2/deg_salmon_gemoma/", species_header,
+  files <- file.path("../input//deg_salmon_gemoma/", species_header,
                      'quants', aech_files, "quant.sf")
   names(files) <- aech_files
-  tx2gene <- read.csv(paste('~/Library/Mobile Documents/com~apple~CloudDocs/KU_data_analysis/gene_age/gene_age_v2/deg_salmon_gemoma/', species_header,'/',species_header,
+  tx2gene <- read.csv(paste('../input//deg_salmon_gemoma/', species_header,'/',species_header,
                             '_gemoma_t2g.txt',sep = ''),header = F, sep = '\t')
   tx2gene$V1 = toupper(tx2gene$V1)
   txi.salmon <- tximport(files, type = "salmon", tx2gene = tx2gene,
@@ -64,7 +64,8 @@ library(sva)
 #ortholog_exp_filtered = ortholog_exp[!apply(ortholog_exp,1, anyNA),] 
 #subset_test = c(1:8)
 subset_sp = c("Aech",'Sinv','Mpha','Lnig','Lhum')
-n = 5
+n = 5 #Using Lhum as one example. Can change n from 1 to 5. 
+# Here, we extracted the eigenvector with four species, then tested it with Lhum. If extracted eigenvector represents the caste GRN across ants, we should expect it to separate caste in Lhum
 subset_test_T = grep(subset_sp[n],rownames(sampleTable_T))
 #subset_test_T = 99
 
@@ -106,9 +107,9 @@ library(ggplot2)
 se_train <- SummarizedExperiment(combat_edata_train - rowMeans(combat_edata_train),colData=filter_table_T)
 pcaData_train <- plotPCA(DESeqTransform( se_train ), intgroup=c("species", "caste"),ntop = 7266, returnData=TRUE)
 
-#pcaData$species = factor(pcaData$species,levels = c('A.echinatior',"S.invicta","M.pharaonis",'L.niger','L.humile'))
 percentVar_train <- round(100 * attr(pcaData_train, "percentVar"))
 names(pcaData_train)[c(4,5)] = c('Species',"Caste")
+
 ggplot(pcaData_train, aes(PC1, PC2, color=Caste, shape=Species)) +
   geom_point(size=3,alpha = .6) +
   scale_shape_manual(values = c(15:17,1,9,10))+
