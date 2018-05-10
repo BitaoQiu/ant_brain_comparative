@@ -9,3 +9,5 @@
 4. To construct cross species co-expression network, run *network_five_ants.R*. All expression levels were normalized with colony identity.
 
 5. To identify genes differentially expressed between castes across five ants species, run *cross_species_deg.R*
+
+Input files for these analyses are available in [here](http://zhanggjlab.cn/downloads/ant_comparative_transcriptomics/04_Cross_species_analysis/input), with username *zhanggjlab* and password *zgjlab2236*.
