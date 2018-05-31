@@ -18,6 +18,6 @@ ggplot(pc_data_target, aes(PC1, PC2, color=Caste, shape=Species,alpha = Species)
   scale_shape_manual(values = c(15:17,0,1,2,5))+
   scale_alpha_manual(values= c(rep(0.2,5),1,1))+
   scale_color_manual(values = c('red','blue','purple','darkblue'))+
-  xlab(paste0("PC1 (",percentVar[1],"%)")) +
-  ylab(paste0("PC2 (",percentVar[2],"%)")) 
+  xlab(paste0("PC1 (",percentVar_ref[1],"%)")) +
+  ylab(paste0("PC2 (",percentVar_ref[2],"%)")) 
 

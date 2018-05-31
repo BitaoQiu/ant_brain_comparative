@@ -71,3 +71,9 @@ modcombat = model.matrix(~1, data=filter_table)
 combat_edata_train = ComBat(dat=exp, batch=batch, mod=modcombat,mean.only = F,
                       par.prior=TRUE,  prior.plots=FALSE)
 combat_edata_train = combat_edata_train[!apply(combat_edata_train,1, anyNA),] #This is the normalized transcriptome from five ant species. 
+
+se_ref <- SummarizedExperiment(combat_edata_train,colData=filter_table)
+pcaData_ref <- plotPCA(DESeqTransform( se_ref ), intgroup=c("species", "caste"),ntop = 10000, returnData=TRUE)
+
+percentVar_ref <- round(100 * attr(pcaData_ref, "percentVar"))
+

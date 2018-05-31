@@ -43,7 +43,7 @@ ortholog_exp = cbind(Aech_exp[match(gene_ortholog_table$Aech, rownames(Aech_exp)
 caste = factor(c(rep(c('gyne','minor'),4),rep(c('gyne','worker'),4),rep(c('gyne','worker'),5),rep(c('gyne','worker'),4),rep(c('gyne','worker'),4)))
                #,rep(c('repro','non-repro'),4) ,rep(c('repro','non-repro'), each = 6)))
 #Colony information.
-colony = factor(c(rep(c(2:5),each = 2),rep(c(7:10),each = 2),rep(c(11:15),each = 2),rep(c(16:19),each = 2),rep(c(16:19)+20,each = 2)))
+colony = factor(c(rep(c(2:5),each = 2),rep(c(7:10),each = 2),rep(c(11:15),each = 2),rep(c(16:19),each = 2),rep(c(30:33),each = 2)))
                   #,rep(c(20:23),each = 2), rep(c(24:29),2)))
 
 #Species information.

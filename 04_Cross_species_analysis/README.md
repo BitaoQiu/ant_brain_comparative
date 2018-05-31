@@ -4,7 +4,7 @@
 
 3. To examine the existence of GRN in the two queenless ant species, 1) run *salmon_reference.R* to get normalized gene expression data of five typical ant species, 2) run *salmon_target.R* to get normalized gene expression data of the two queenless ant species, and 3) run *test_GRN.R* to extract the eigenvector (representing GRN) from the typical ant species using **SVD** and apply it to the queenless ant species. This will examine the GRN in the queenless ant species.
 
-3. To validate the **SVD** method, go to *test_SVD_method*, then run *salmon_trainning.R*, *salmon_all.R* and *salmon_test.R*.
+*Note*: To validate the **SVD** method, go to *test_SVD_method*, then run *salmon_trainning.R*, *salmon_all.R* and *salmon_test.R*.
 
 4. To construct cross species co-expression network, run *network_five_ants.R*. All expression levels were normalized with colony identity.
 
