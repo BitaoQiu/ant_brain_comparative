@@ -1,3 +1,4 @@
+# Guideline:
 1. To examine the orthologous gene expression level across ant species, run: *without_normalization.R* for the clustering and PCA result.
 
 2. To examine the expression level after normalizing for species/colony variation, run: *with_normalization.R*, note that it uses the output from *without_normalization.R*
@@ -11,3 +12,7 @@
 5. To identify genes differentially expressed between castes across five ants species, run *cross_species_deg.R*
 
 Input files for these analyses are available in [here](http://zhanggjlab.cn/downloads/ant_comparative_transcriptomics/04_Cross_species_analysis/input), with username *zhanggjlab* and password *zgjlab2236*.
+
+# Requirements:
+*R version > 3
+*R packages: devtools, Biobase, preprocessCore, tximport, DESeq2, RColorBrewer, pheatmap, ggplot2, sva, readr
