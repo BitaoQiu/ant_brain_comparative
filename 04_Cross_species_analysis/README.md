@@ -9,7 +9,7 @@
 
 5. To identify genes differentially expressed between castes across five ants species, run *cross_species_deg.R*
 
-*Note*: To validate the **SVD** method, go to *test_SVD_method*, then run *salmon_trainning.R*, *salmon_all.R* and *salmon_test.R*.
+*Note*: To validate the **SVD** method, go to [test_SVD_method](https://github.com/StanQiu/ant_brain_comparative/tree/master/04_Cross_species_analysis/test_SVD_method), then run *salmon_trainning.R*, *salmon_all.R* and *salmon_test.R*.
 
 # Input:
 Input files for these analyses are available in [http://zhanggjlab.cn/downloads/ant_comparative_transcriptomics/04_Cross_species_analysis/input](http://zhanggjlab.cn/downloads/ant_comparative_transcriptomics/04_Cross_species_analysis/input).
