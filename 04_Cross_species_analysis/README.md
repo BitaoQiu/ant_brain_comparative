@@ -13,8 +13,10 @@
 
 # Input:
 Input files for these analyses are available in [http://zhanggjlab.cn/downloads/ant_comparative_transcriptomics/04_Cross_species_analysis/input](http://zhanggjlab.cn/downloads/ant_comparative_transcriptomics/04_Cross_species_analysis/input).
-**username**: *zhanggjlab*
-**password**: *zgjlab2236*
+
+**Username**: *zhanggjlab*
+
+**Password**: *zgjlab2236*
 
 # Requirements:
 * R version: > 3
