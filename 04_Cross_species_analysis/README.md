@@ -11,8 +11,8 @@
 
 *Note*: To validate the **SVD** method, go to *test_SVD_method*, then run *salmon_trainning.R*, *salmon_all.R* and *salmon_test.R*.
 
-Input files for these analyses are available in [here](http://zhanggjlab.cn/downloads/ant_comparative_transcriptomics/04_Cross_species_analysis/input), with username *zhanggjlab* and password *zgjlab2236*.
+Input files for these analyses are available in [http://zhanggjlab.cn/downloads/ant_comparative_transcriptomics/04_Cross_species_analysis/input](http://zhanggjlab.cn/downloads/ant_comparative_transcriptomics/04_Cross_species_analysis/input), with username *zhanggjlab* and password *zgjlab2236*.
 
 # Requirements:
-* R version > 3
+* R version: > 3
 * R packages: devtools, Biobase, preprocessCore, tximport, DESeq2, RColorBrewer, pheatmap, ggplot2, sva, readr
