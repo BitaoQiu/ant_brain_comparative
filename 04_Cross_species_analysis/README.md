@@ -5,14 +5,14 @@
 
 3. To examine the existence of GRN in the two queenless ant species, 1) run *salmon_reference.R* to get normalized gene expression data of five typical ant species, 2) run *salmon_target.R* to get normalized gene expression data of the two queenless ant species, and 3) run *test_GRN.R* to extract the eigenvector (representing GRN) from the typical ant species using **SVD** and apply it to the queenless ant species. This will examine the GRN in the queenless ant species.
 
-*Note*: To validate the **SVD** method, go to *test_SVD_method*, then run *salmon_trainning.R*, *salmon_all.R* and *salmon_test.R*.
-
 4. To construct cross species co-expression network, run *network_five_ants.R*. All expression levels were normalized with colony identity.
 
 5. To identify genes differentially expressed between castes across five ants species, run *cross_species_deg.R*
 
+*Note*: To validate the **SVD** method, go to *test_SVD_method*, then run *salmon_trainning.R*, *salmon_all.R* and *salmon_test.R*.
+
 Input files for these analyses are available in [here](http://zhanggjlab.cn/downloads/ant_comparative_transcriptomics/04_Cross_species_analysis/input), with username *zhanggjlab* and password *zgjlab2236*.
 
 # Requirements:
-*R version > 3
-*R packages: devtools, Biobase, preprocessCore, tximport, DESeq2, RColorBrewer, pheatmap, ggplot2, sva, readr
+* R version > 3
+* R packages: devtools, Biobase, preprocessCore, tximport, DESeq2, RColorBrewer, pheatmap, ggplot2, sva, readr
