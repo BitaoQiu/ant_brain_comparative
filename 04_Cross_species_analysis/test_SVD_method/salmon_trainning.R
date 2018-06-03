@@ -117,6 +117,6 @@ ggplot(pcaData_train, aes(PC1, PC2, color=Caste, shape=Species)) +
   xlab(paste0("PC1 (",percentVar_train[1],"%)")) +
   ylab(paste0("PC2 (",percentVar_train[2],"%)")) + 
   coord_fixed()
-
+save(n, percentVar_train, combat_edata_train,file = 'test_SVD_1.Rdata')
 #####
 

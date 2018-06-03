@@ -87,7 +87,7 @@ ann_colors = list(Species = c(A.echinatior = sp_color[1],S.invicta = sp_color[2]
                               C.biroi = sp_color[6],D.quadriceps = sp_color[7]),
                   Caste = c(Gyne = rgb(1,0,0,0.8),`Small worker` = 'yellow',Worker = rgb(0,0,1,0.8),
                             Reproductive = rgb(1,0,0,0.5), `Non-reproductive` = rgb(0,0,1,0.5)))
-
+pdf("02.cluster.pdf")
 pheatmap(sampleDistMatrix,annotation_col = sampleTable_col,annotation_row = sampleTable_row,show_colnames = F,show_rownames = F,
          clustering_distance_rows=as.dist(1-cor(combat_edata,method = 's')),
          clustering_distance_cols=as.dist(1-cor(combat_edata,method = 's')),
@@ -97,7 +97,7 @@ pheatmap(sampleDistMatrix,annotation_col = sampleTable_col,annotation_row = samp
          clustering_distance_rows=dist(t(combat_edata)),
          clustering_distance_cols=dist(t(combat_edata)),
          col=colors,annotation_colors = ann_colors)
-
+dev.off()
 library(ggplot2)
 se <- SummarizedExperiment(combat_edata - rowMeans(combat_edata),colData=sampleTable)
 pcaData <- plotPCA(DESeqTransform( se ), intgroup=c("species", "caste"),ntop = 7266, returnData=TRUE)
@@ -117,3 +117,4 @@ ggplot(pcaData, aes(PC1, PC2, color=Caste, shape=Species)) +
   xlab(paste0("PC1 (",percentVar_all[1],"%)")) +
   ylab(paste0("PC2 (",percentVar_all[2],"%)")) + 
   coord_fixed()
+ggsave("02.PCA.png")

@@ -120,4 +120,5 @@ ggplot(data = d, aes(x = caste,y = count, colour = species,group = colony))+
   geom_point()+
   geom_line()+
   scale_y_log10()
-
+ggsave("05.test_gene.png")
+write.table(res,"05.cross_sp_deg.tsv",sep ='\t',quote =F)

@@ -1,8 +1,10 @@
+library(ggplot2)
 library(devtools)
 library(Biobase)
 library(preprocessCore)
 library(tximport)
 library('DESeq2')
+library(rjson)
 library("RColorBrewer")
 library("pheatmap")
 
@@ -84,14 +86,14 @@ callback = function(hc, mat){
   dend = reorder(as.dendrogram(hc), wts = combine)
   as.hclust(dend)
 }
-
+pdf("01.cluster.pdf")
 pheatmap(sampleDists,annotation_col = sampleTable_col,annotation_row = sampleTable_row,show_rownames = F,show_colnames = F, clustering_callback = callback,
          clustering_distance_rows = dist(t(exp)), annotation_colors = ann_colors,
          clustering_distance_cols=dist(t(exp)),color = colors) #Clustering using euclidean distance
-
 pheatmap(sampleDists,annotation_col = sampleTable_col,annotation_row = sampleTable_row,show_rownames = F,show_colnames = F,legend  = T, clustering_callback = callback,
          clustering_distance_rows = as.dist(1-cor(exp,method = 's')), annotation_colors = ann_colors,
          clustering_distance_cols=as.dist(1-cor(exp,method = 's')),color = colors) #Clustering using correlation coefficient
+dev.off()
 
 library(ggplot2)
 se <- SummarizedExperiment(exp,colData=sampleTable)
@@ -110,4 +112,4 @@ ggplot(pcaData, aes(PC1, PC2, color=Caste, shape=Species)) +
   xlab(paste0("PC1 (",percentVar[1],"%)")) +
   ylab(paste0("PC2 (",percentVar[2],"%)")) +
   coord_fixed()
-
+ggsave("01.PCA.png")

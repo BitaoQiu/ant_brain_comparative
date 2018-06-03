@@ -1,3 +1,6 @@
+library(ggplot2)
+load("test_SVD_1.Rdata")
+load("test_SVD_2.Rdata")
 tmp = combat_edata_train - rowMeans(combat_edata_train)
 tmp_2 = combat_edata - rowMeans(combat_edata)
 share_gene = intersect(rownames(tmp),rownames(tmp_2))
@@ -28,4 +31,4 @@ ggplot(pc_data_test, aes(PC1, PC2, color=Caste, shape=Species,alpha = Species)) 
   ylab(paste0("PC2 (",percentVar_train[2],"%)"))+
   labs(title = levels(pc_data_test$Species)[n])+
   coord_fixed()
-
+ggsave("testSVD.png")

@@ -78,4 +78,4 @@ modcombat = model.matrix(~1, data=filter_table)
 combat_edata = ComBat(dat=exp[,subset_test], batch=batch, mod=modcombat,mean.only = F,
                       par.prior=TRUE,  prior.plots=FALSE)
 #####
-
+save(filter_table, combat_edata, file = 'test_SVD_2.Rdata')

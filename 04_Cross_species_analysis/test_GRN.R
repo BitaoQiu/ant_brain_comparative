@@ -1,3 +1,7 @@
+# Continue from the outputs of salmon_reference.R and salmon_target.R
+library(ggplot2)
+load('03_input_reference_1.RData')
+load('03_input_reference_2.RData')
 norm_reference = combat_edata_train - rowMeans(combat_edata_train)
 norm_target = combat_edata_target - rowMeans(combat_edata_target)
 share_gene = intersect(rownames(norm_reference),rownames(norm_target)) #Only select genes that shared between both reference and target species.
@@ -21,3 +25,4 @@ ggplot(pc_data_target, aes(PC1, PC2, color=Caste, shape=Species,alpha = Species)
   xlab(paste0("PC1 (",percentVar_ref[1],"%)")) +
   ylab(paste0("PC2 (",percentVar_ref[2],"%)")) 
 
+ggsave('03.test_GRN.png')

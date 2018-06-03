@@ -6,6 +6,7 @@ library(tximport)
 library('DESeq2')
 library("RColorBrewer")
 library("pheatmap")
+library('ggplot2')
 
 gene_ortholog_table = read.table('input/gene_table.poff', col.names = c('Aech','Sinv','Mpha','Lnig','Lhum','Cbir','Dqua')) #orthologous genes relations among seven ant species
 
@@ -77,3 +78,4 @@ pcaData_ref <- plotPCA(DESeqTransform( se_ref ), intgroup=c("species", "caste"),
 
 percentVar_ref <- round(100 * attr(pcaData_ref, "percentVar"))
 
+save(percentVar_ref, combat_edata_train,file = "03_input_reference_1.RData")

@@ -91,7 +91,6 @@ net_background = apply(abs(combat_edata_net),1,median)
 net_connectivity.test = apply(combat_edata_net, 1,FUN = function(x){
   wilcox.test(abs(x),net_background,alternative = 'g',paired = T)$p.value}) # One-sided wilcox test to compare the connectivity of target genes with that of whole genome background.
 net_connectivity.test.adj = p.adjust(net_connectivity.test)
-net_connectivity.test.adj[which(net_connectivity.test.adj == min(net_connectivity.test.adj))]
 #####
 n = 500 #Randomly sampled 500 genes
 ## May also add log2 expression ratio for all the genes.
@@ -110,6 +109,8 @@ color.ramp <- colorRamp(c("blue", "red"))( (0:4)/4 )
 
 ann_colors = list( Evolutionary.origin = c(Neoptera =tmp_col[1],Endopterygota = tmp_col[2],Hymenoptera=tmp_col[3],Aprocrita = tmp_col[4],Aculeata = tmp_col[5],Formicidae = tmp_col[6]),
                    caste_bias_2 = colorRampPalette(c('blue','white',"red"),bias =1, interpolate = "linear")( 5 ))
+pdf("04.co-expression_network.pdf")
 pheatmap(abs(combat_edata_net.f[tmp_gene,tmp_gene]), cluster_rows=T, cluster_cols=T, show_rownames=F,show_colnames = F, 
          annotation_col = caste_bias, annotation_row = age_bias,annotation_colors =  ann_colors, 
          clustering_distance_rows = 'correlation',clustering_distance_cols = 'correlation')
+dev.off()

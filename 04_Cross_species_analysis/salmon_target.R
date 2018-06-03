@@ -1,3 +1,4 @@
+# Continue from the output of salmon_reference.R
 library(devtools)
 library(Biobase)
 library(preprocessCore)
@@ -5,6 +6,22 @@ library(tximport)
 library('DESeq2')
 library("RColorBrewer")
 library("pheatmap")
+
+gene_ortholog_table = read.table('input/gene_table.poff', col.names = c('Aech','Sinv','Mpha','Lnig','Lhum','Cbir','Dqua')) #orthologous genes relations among seven ant species
+read_input = function(species_header, col_name){
+  aech_files = c(paste(species_header,col_name,sep ='_'))
+  files <- file.path("input/deg_salmon_gemoma/", species_header,#Output of salmon
+                     'quants', aech_files, "quant.sf")
+  names(files) <- aech_files
+  tx2gene <- read.csv(paste('input/deg_salmon_gemoma/', species_header,'/',species_header,
+                            '_gemoma_t2g.txt',sep = ''),header = F, sep = '\t')
+  tx2gene$V1 = toupper(tx2gene$V1)
+  txi.salmon <- tximport(files, type = "salmon", tx2gene = tx2gene,
+                         countsFromAbundance = 'lengthScaledTPM')
+  abundance_data = txi.salmon$abundance
+  rownames(abundance_data)  = paste(species_header,  rownames(abundance_data), sep = '_')
+  return(abundance_data)
+}
 
 Aech_exp = read_input('Aech',col_name = c(4,6,7,9,'10x','12x','13x',15))
 Lhum_exp = read_input('Lhum',col_name = c(3:10))
@@ -54,4 +71,4 @@ batch = droplevels(filter_table$colony) #Note that should choose the same level 
 modcombat = model.matrix(~1, data=filter_table)
 combat_edata_target = ComBat(dat=exp, batch=batch, mod=modcombat,mean.only = F,
                       par.prior=TRUE,  prior.plots=FALSE) #Normalized expression level of both reference and target species.
-
+save(combat_edata_target, filter_table, file = "03_input_reference_2.RData")
